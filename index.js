@@ -8,13 +8,19 @@ const knex = require('knex')({
   connection: 'postgres://localhost:5432/emrnow'
 })
 
-const query = knex
-  .insert({ first_name: 'Vince', last_name: 'Lavang', intake_date: '07/11/2017' })
-  .into('clients')
+app.use(jsonParser)
 
-console.log(query.toString())
+app.post('/clients', function (req, res) {
+  const query = knex
+    .insert(req.body)
+    .into('clients')
+  query
+    .then(() => {
+      res.sendStatus(201)
+      console.log('done!')
+    })
+})
 
-query
-  .then(() => {
-    console.log('done!')
-  })
+app.listen(3000, () => {
+  console.log('Listening on port 3000!')
+})
