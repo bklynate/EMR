@@ -4,6 +4,5 @@ CREATE TABLE clients (
   id          serial,
   first_name  text,
   last_name   text,
-  intake_date date,
-
+  intake_date date
 );
