@@ -1,0 +1,21 @@
+#clients {
+  padding-top: 26px;
+}
+
+#houses {
+  padding-bottom: 26px;
+}
+
+#drug {
+  height: 200px;
+  width: 225px;
+  padding-bottom: 50px;
+}
+
+#last {
+  padding-top: 86px;
+}
+
+h3, p {
+  text-align: center;
+}

@@ -1,0 +1,27 @@
+{
+  "name": "EMR",
+  "version": "1.0.0",
+  "description": "A web app for electronic medical records(EMR).",
+  "main": "main.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "nodemon": "^1.11.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vincelavang/EMR.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vincelavang/EMR/issues"
+  },
+  "homepage": "https://github.com/vincelavang/EMR#readme"
+}
