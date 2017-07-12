@@ -13,6 +13,18 @@ const knex = require('knex')({
 
 app.use(jsonParser)
 
+app.get('/clients', function (req, res) {
+  const query = knex
+    .select()
+    .from('clients')
+  console.log(query.toString())
+  query
+    .then((clients) => {
+      console.log(clients)
+      res.json(clients)
+    })
+})
+
 app.post('/clients', function (req, res) {
   const query = knex
     .insert(req.body)
