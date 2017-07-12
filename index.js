@@ -20,7 +20,6 @@ app.get('/clients', function (req, res) {
   console.log(query.toString())
   query
     .then((clients) => {
-      console.log(clients)
       res.json(clients)
     })
 })
