@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="styles.css" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link href="styles.css" type="text/css" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <title>EMRnow</title>
@@ -10,34 +10,49 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-sm-offset-3 col-sm-6">
+        <div id="panel" class="col-sm-offset-3 col-sm-6">
           <div class="panel panel-primary login">
             <div class="panel-body text-center">
-              <h1>EMRnow</h1>
+              <h1>EMRnow</h1><hr/>
               <h3>Add a client</h3>
             </div>
             <div class="panel-body">
-              <form class="form-horizontal">
+              <form  id="new-client" class="form-horizontal">
                 <div class="form-group">
                   <label for="first-name" class="col-sm-4 control-label">First Name</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="inputemail3" placeholder="First Name" />
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                      <span class="glyphicon glyphicon-user"></span>
+                      </div>
+                    <input id="first-name" type="text" class="form-control" placeholder="First Name" />
+                  </div>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="last-name" class="col-sm-4 control-label">Last Name</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="inputpassword4" placeholder="Last Name" />
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                      <span class="glyphicon glyphicon-user"></span>
+                      </div>
+                    <input id="last-name" type="text" class="form-control" placeholder="Last Name" />
                   </div>
+                </div>
                 </div>
                 <div class="form-group">
                   <label for="intake-date" class="col-sm-4 control-label">Intake Date</label>
                   <div class="col-sm-8">
-                    <input type="date" class="form-control" id="inputpassword5" />
+                    <div id="input-date" class="input-group">
+                      <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </div>
+                    <input id="date" type="date" class="form-control" />
+                    </div>
                   </div>
                 </div>
                 <div class="col-sm-12 text-right">
-                  <button type="submit" class="btn btn-default">Save</button>
+                  <button type="submit" class="btn btn-primary">Save</button>
                 </div>
               </form>
             </div>
@@ -45,39 +60,6 @@
         </div>
       </div>
     </div>
-    <!--<hr>
-    <div container>
-      <div class="row">
-        <div class="col-sm-6 col-md-4">
-          <div class="thumbnail">
-            <img id="clients" src="https://cdn4.iconfinder.com/data/icons/general04/png/256/clients.png" alt="clients">
-            <div class="caption">
-              <h3>Clients</h3>
-              <p>View complete list of clients or manage individually.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4">
-          <div class="thumbnail">
-            <img id="houses" src="https://www.iconexperience.com/_img/g_collection_png/standard/256x256/houses.png" alt="facilities">
-            <div class="caption">
-              <h3>Facilities</h3>
-              <p>View complete list of clients or manage individually.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4">
-          <div id="last" class="thumbnail">
-            <img id="drug" src="https://vcahospitals.com/-/media/vca/images/lifelearn-images/testing_for_increased_thirst_and_urination-2.ashx?la=en&hash=D841BF0A1FBBE96DA8BE2E481F8113A06688C509" alt="drug testing">
-            <div class="caption">
-              <h3>Urinary Analysis(UA)</h3>
-              <p>View current UA's by clients.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>-->
-    <ul id="user"></ul>
     <script type="text/javascript" src="main.js"></script>
   </body>
 </html>

@@ -1,3 +1,7 @@
+body {
+  background-color: #eee;
+}
+
 #clients {
   padding-top: 26px;
 }
@@ -18,4 +22,14 @@
 
 h3, p {
   text-align: center;
+}
+
+#first-name,
+#last-name,
+#date {
+  width: 60%;
+}
+
+#panel {
+  padding-top: 5%;
 }
