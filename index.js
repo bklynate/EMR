@@ -17,7 +17,6 @@ app.get('/clients', function (req, res) {
   const query = knex
     .select()
     .from('clients')
-  console.log(query.toString())
   query
     .then((clients) => {
       res.json(clients)
@@ -28,9 +27,10 @@ app.post('/clients', function (req, res) {
   const query = knex
     .insert(req.body)
     .into('clients')
+    .returning('*')
   query
-    .then(() => {
-      res.sendStatus(201)
+    .then((client) => {
+      res.json(client[0])
       console.log('done!')
     })
 })
