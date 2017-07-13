@@ -1,0 +1,13 @@
+body {
+  background-color: #eee;
+}
+
+#first-name,
+#last-name,
+#date {
+  width: 60%;
+}
+
+#panel {
+  padding-top: 5%;
+}
