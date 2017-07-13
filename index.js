@@ -5,6 +5,8 @@ const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const publicPath = path.join(__dirname, 'public')
 const staticMiddleware = express.static(publicPath)
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 const knex = require('knex')({
   dialect: 'pg',
