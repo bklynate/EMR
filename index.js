@@ -5,8 +5,8 @@ const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const publicPath = path.join(__dirname, 'public')
 const staticMiddleware = express.static(publicPath)
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const multer = require('multer')
+const upload = multer({ dest: 'public/images' })
 
 const knex = require('knex')({
   dialect: 'pg',
@@ -25,9 +25,15 @@ app.get('/clients', function (req, res) {
     })
 })
 
-app.post('/clients', function (req, res) {
+app.post('/clients', upload.single('picture'), function (req, res) {
+  const client = {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    intake_date: req.body.intake_date,
+    picture: req.file.filename
+  }
   const query = knex
-    .insert(req.body)
+    .insert(client)
     .into('clients')
     .returning('*')
   query
