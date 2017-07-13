@@ -20,3 +20,11 @@ $createClient.addEventListener('submit', function (event) {
     console.log(newClient)
   })
 })
+
+function updateFileName() {
+  const $browse = document.querySelector('#browse')
+  const $picFile = document.querySelector('#pic-file')
+  const fileNameIndex = $browse.value.lastIndexOf('\\')
+
+  $picFile.value = $browse.value.substring(fileNameIndex + 1)
+}
