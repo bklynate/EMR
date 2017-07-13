@@ -10,7 +10,9 @@
     "nodemon": "^1.11.0",
     "pg": "^6.4.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon index.js"
