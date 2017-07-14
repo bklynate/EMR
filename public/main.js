@@ -4,6 +4,7 @@ const $browse = document.querySelector('#browse')
 const $save = document.querySelector('#save')
 const $results = document.querySelector('#results')
 const $addClient = document.querySelector('#add-client')
+const $addIcon = document.querySelector('#add-icon')
 
 $createClient.addEventListener('submit', function (event) {
   event.preventDefault()
@@ -12,7 +13,11 @@ $createClient.addEventListener('submit', function (event) {
     method: 'POST',
     body: formData
   })
-  .then(res => console.log('done!'))
+  .then(res => res.json())
+  .then(client => {
+    const $client = renderClient(client)
+    $results.insertBefore($client, $addClient)
+  })
 })
 
 $browse.addEventListener('change', function (event) {
@@ -24,6 +29,12 @@ $browse.addEventListener('change', function (event) {
 
 $save.addEventListener('click', function (event) {
   document.querySelector('#panel').style.display = 'none'
+  $results.style.display = 'block'
+})
+
+$addIcon.addEventListener('click', function (event) {
+  document.querySelector('#panel').style.display = 'block'
+  $results.style.display = 'none'
 })
 
 fetch('/clients')

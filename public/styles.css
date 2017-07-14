@@ -17,6 +17,11 @@ body {
 }
 
 #add-icon {
-  padding-top: 38%;
+  padding-top: 35%;
   padding-left: 30%;
+}
+
+h3,
+p {
+  text-align: center;
 }
