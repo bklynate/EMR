@@ -1,5 +1,7 @@
 const $createClient = document.querySelector('#new-client')
 const $browse = document.querySelector('#browse')
+const $save = document.querySelector('#save')
+
 $createClient.addEventListener('submit', function (event) {
   event.preventDefault()
   const formData = new FormData($createClient)
@@ -7,7 +9,7 @@ $createClient.addEventListener('submit', function (event) {
     method: 'POST',
     body: formData
   })
-  .then(res => console.log('hi'))
+  .then(res => console.log('done!'))
 })
 
 $browse.addEventListener('change', function (event) {
@@ -15,4 +17,8 @@ $browse.addEventListener('change', function (event) {
   const fileNameIndex = $browse.value.lastIndexOf('\\')
 
   $picFile.value = $browse.value.substring(fileNameIndex + 1)
+})
+
+$save.addEventListener('click', function (event) {
+  document.querySelector('#panel').style.display = 'none'
 })
