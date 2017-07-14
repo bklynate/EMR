@@ -1,9 +1,9 @@
+/* eslint-disable camelcase */
 const $createClient = document.querySelector('#new-client')
 const $browse = document.querySelector('#browse')
 const $save = document.querySelector('#save')
 const $results = document.querySelector('#results')
-const $clientResults = document.querySelector('#client-results')
-const $panel = document.querySelector('#panel')
+const $addClient = document.querySelector('#add-client')
 
 $createClient.addEventListener('submit', function (event) {
   event.preventDefault()
@@ -31,14 +31,14 @@ fetch('/clients')
     console.log(response)
     return response.json()
   })
-  .then(users => {
-    users.map(renderUser)
-      .forEach($results => {
-        $clientResults.appendChild($results)
+  .then(clients => {
+    clients.map(renderClient)
+      .forEach($client => {
+        $results.insertBefore($client, $addClient)
       })
   })
 
-function renderUser(client) {
+function renderClient(client) {
   const {first_name, last_name, intake_date, picture} = client
   const $col = document.createElement('div')
   $col.classList.add('col-sm-6')
@@ -53,16 +53,16 @@ function renderUser(client) {
   $fullname.textContent = first_name + ' ' + last_name
   const $date = document.createElement('p')
   const d = new Date(intake_date)
-  const datestring = 'Intake Date:' + ' ' + d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear()
+  const datestring = 'Intake Date:' + ' ' + (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear()
   $date.textContent = datestring
   console.log(intake_date)
   console.log(new Date(intake_date))
-  $results.appendChild($col)
+
   $col.appendChild($thumbnail)
   $thumbnail.appendChild($image)
   $thumbnail.appendChild($caption)
   $caption.appendChild($fullname)
   $caption.appendChild($date)
 
-  return $results
+  return $col
 }
