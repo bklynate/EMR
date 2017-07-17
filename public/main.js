@@ -28,13 +28,14 @@ $browse.addEventListener('change', function (event) {
 })
 
 $save.addEventListener('click', function (event) {
-  document.querySelector('#panel').style.display = 'none'
-  $results.style.display = 'block'
+  document.querySelector('#panel').classList.add('hidden')
+  $results.classList.remove('hidden')
 })
 
 $addIcon.addEventListener('click', function (event) {
-  document.querySelector('#panel').style.display = 'block'
-  $results.style.display = 'none'
+  $results.classList.add('hidden')
+  document.querySelector('#panel').classList.remove('hidden')
+  document.querySelector('#panel').classList.add('show')
 })
 
 fetch('/clients')

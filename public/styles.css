@@ -25,3 +25,11 @@ h3,
 p {
   text-align: center;
 }
+
+.hidden {
+  display: none;
+}
+
+.show {
+  display: block;
+}
