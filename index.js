@@ -52,6 +52,15 @@ function getClientById(id) {
   return query
 }
 
+app.get('/clients/:id', function (req, res) {
+  const clientId = parseInt(req.params.id, 10)
+  getClientById(clientId)
+  .then(client => {
+    res.json(client)
+    console.log(client)
+  })
+})
+
 app.use(staticMiddleware)
 
 app.listen(3000, () => {
