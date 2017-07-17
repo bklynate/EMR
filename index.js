@@ -13,6 +13,8 @@ const knex = require('knex')({
   connection: 'postgres://localhost:5432/emrnow'
 })
 
+let clientId = 1
+
 app.use(jsonParser)
 
 app.get('/clients', function (req, res) {
