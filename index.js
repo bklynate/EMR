@@ -13,8 +13,6 @@ const knex = require('knex')({
   connection: 'postgres://localhost:5432/emrnow'
 })
 
-let clientId = 1
-
 app.use(jsonParser)
 
 app.get('/clients', function (req, res) {
@@ -44,6 +42,15 @@ app.post('/clients', upload.single('picture'), function (req, res) {
       console.log('done!')
     })
 })
+
+function getClientById(id) {
+  const query = knex
+    .where('id', id)
+    .select()
+    .from('clients')
+    .first()
+  return query
+}
 
 app.use(staticMiddleware)
 
