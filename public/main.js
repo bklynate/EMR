@@ -35,7 +35,6 @@ $save.addEventListener('click', function (event) {
 $addIcon.addEventListener('click', function (event) {
   $results.classList.add('hidden')
   document.querySelector('#panel').classList.remove('hidden')
-  document.querySelector('#panel').classList.add('show')
 })
 
 fetch('/clients')
