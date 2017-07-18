@@ -57,6 +57,7 @@ function renderClient(client) {
   const $thumbnail = document.createElement('div')
   $thumbnail.classList.add('thumbnail')
   const $image = document.createElement('img')
+  $image.classList.add('image')
   $image.setAttribute('src', 'images/' + picture)
   $image.setAttribute('data-id', id)
   const $caption = document.createElement('div')
@@ -83,3 +84,10 @@ function viewClientById(id) {
     return response.json()
   })
 }
+
+viewClientById(3).then(client => console.log(client))
+
+document.addEventListener('click', function (event) {
+  // const clientId = event.target.getAttribute('data-id')
+  document.querySelector('#client-results').classList.add('hidden')
+})
