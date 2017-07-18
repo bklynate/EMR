@@ -85,9 +85,36 @@ function viewClientById(id) {
   })
 }
 
-viewClientById(3).then(client => console.log(client))
-
 document.addEventListener('click', function (event) {
-  // const clientId = event.target.getAttribute('data-id')
+  const clientId = event.target.getAttribute('data-id')
+  viewClientById(clientId)
+  .then(data => {
+    const $clientDetail = renderClientDetailView(data)
+    const $showClient = document.querySelector('#show-client')
+    $showClient.appendChild($clientDetail)
+  })
   document.querySelector('#client-results').classList.add('hidden')
 })
+
+function renderClientDetailView(client) {
+  const {first_name, last_name, intake_date, picture, id} = client
+  const $div = document.createElement('div')
+  const $imageSingle = document.createElement('img')
+  $imageSingle.setAttribute('src', 'images/' + picture)
+  $imageSingle.setAttribute('data-id', id)
+  const $caption = document.createElement('div')
+  $caption.classList.add('caption')
+  const $fullname = document.createElement('h1')
+  $fullname.textContent = first_name + ' ' + last_name
+  const $date = document.createElement('h4')
+  const d = new Date(intake_date)
+  const datestring = 'Intake Date:' + ' ' + (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear()
+  $date.textContent = datestring
+
+  $div.appendChild($imageSingle)
+  $div.appendChild($caption)
+  $caption.appendChild($fullname)
+  $caption.appendChild($date)
+
+  return $div
+}
