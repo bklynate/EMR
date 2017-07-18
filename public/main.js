@@ -50,7 +50,7 @@ fetch('/clients')
   })
 
 function renderClient(client) {
-  const {first_name, last_name, intake_date, picture} = client
+  const {first_name, last_name, intake_date, picture, id} = client
   const $col = document.createElement('div')
   $col.classList.add('col-sm-6')
   $col.classList.add('col-md-4')
@@ -58,6 +58,7 @@ function renderClient(client) {
   $thumbnail.classList.add('thumbnail')
   const $image = document.createElement('img')
   $image.setAttribute('src', 'images/' + picture)
+  $image.setAttribute('data-id', id)
   const $caption = document.createElement('div')
   $caption.classList.add('caption')
   const $fullname = document.createElement('h3')
@@ -66,8 +67,6 @@ function renderClient(client) {
   const d = new Date(intake_date)
   const datestring = 'Intake Date:' + ' ' + (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear()
   $date.textContent = datestring
-  console.log(intake_date)
-  console.log(new Date(intake_date))
 
   $col.appendChild($thumbnail)
   $thumbnail.appendChild($image)
@@ -76,4 +75,11 @@ function renderClient(client) {
   $caption.appendChild($date)
 
   return $col
+}
+
+function viewClientById(id) {
+  return fetch('/clients/' + id)
+  .then(response => {
+    return response.json()
+  })
 }
