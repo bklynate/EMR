@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 const $createClient = document.querySelector('#new-client')
 const $browse = document.querySelector('#browse')
-const $results = document.querySelector('#results')
 const $addClient = document.querySelector('#add-client')
 const $addIcon = document.querySelector('#add-icon')
 const $clientResults = document.querySelector('#client-results')
@@ -16,7 +15,7 @@ $createClient.addEventListener('submit', function (event) {
   .then(res => res.json())
   .then(client => {
     const $client = renderClient(client)
-    $results.insertBefore($client, $addClient)
+    $clientResults.insertBefore($client, $addClient)
     $clientResults.classList.remove('hidden')
     document.querySelector('#panel').classList.add('hidden')
   })
@@ -42,7 +41,7 @@ fetch('/clients')
   .then(clients => {
     clients.map(renderClient)
       .forEach($client => {
-        $results.insertBefore($client, $addClient)
+        $clientResults.insertBefore($client, $addClient)
       })
   })
 
@@ -89,8 +88,11 @@ $clientResults.addEventListener('click', function (event) {
     .then(data => {
       const $clientDetail = renderClientDetailView(data)
       const $showClient = document.querySelector('#show-client')
+      const $button = $showClient.querySelector('button')
       $showClient.appendChild($clientDetail)
       $clientResults.classList.add('hidden')
+      $showClient.classList.remove('hidden')
+      $showClient.insertBefore($clientDetail, $button)
     })
   }
 })
