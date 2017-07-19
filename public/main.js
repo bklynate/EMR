@@ -90,7 +90,7 @@ $clientResults.addEventListener('click', function (event) {
       const $clientDetail = renderClientDetailView(data)
       const $showClient = document.querySelector('#show-client')
       $showClient.appendChild($clientDetail)
-      document.querySelector('#client-results').classList.add('hidden')
+      $clientResults.classList.add('hidden')
     })
   }
 })
