@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 const $createClient = document.querySelector('#new-client')
 const $browse = document.querySelector('#browse')
-const $save = document.querySelector('#save')
 const $results = document.querySelector('#results')
 const $addClient = document.querySelector('#add-client')
 const $addIcon = document.querySelector('#add-icon')
+const $clientResults = document.querySelector('#client-results')
 
 $createClient.addEventListener('submit', function (event) {
   event.preventDefault()
@@ -17,6 +17,8 @@ $createClient.addEventListener('submit', function (event) {
   .then(client => {
     const $client = renderClient(client)
     $results.insertBefore($client, $addClient)
+    $clientResults.classList.remove('hidden')
+    document.querySelector('#panel').classList.add('hidden')
   })
 })
 
@@ -27,13 +29,8 @@ $browse.addEventListener('change', function (event) {
   $picFile.value = $browse.value.substring(fileNameIndex + 1)
 })
 
-$save.addEventListener('click', function (event) {
-  document.querySelector('#panel').classList.add('hidden')
-  $results.classList.remove('hidden')
-})
-
 $addIcon.addEventListener('click', function (event) {
-  $results.classList.add('hidden')
+  $clientResults.classList.add('hidden')
   document.querySelector('#panel').classList.remove('hidden')
 })
 
@@ -85,15 +82,17 @@ function viewClientById(id) {
   })
 }
 
-document.addEventListener('click', function (event) {
+$clientResults.addEventListener('click', function (event) {
   const clientId = event.target.getAttribute('data-id')
-  viewClientById(clientId)
-  .then(data => {
-    const $clientDetail = renderClientDetailView(data)
-    const $showClient = document.querySelector('#show-client')
-    $showClient.appendChild($clientDetail)
-  })
-  document.querySelector('#client-results').classList.add('hidden')
+  if (clientId) {
+    viewClientById(clientId)
+    .then(data => {
+      const $clientDetail = renderClientDetailView(data)
+      const $showClient = document.querySelector('#show-client')
+      $showClient.appendChild($clientDetail)
+      document.querySelector('#client-results').classList.add('hidden')
+    })
+  }
 })
 
 function renderClientDetailView(client) {

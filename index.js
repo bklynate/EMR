@@ -54,6 +54,7 @@ function getClientById(id) {
 
 app.get('/clients/:id', function (req, res) {
   const clientId = parseInt(req.params.id, 10)
+  console.log(clientId)
   getClientById(clientId)
   .then(client => {
     res.json(client)
