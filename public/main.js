@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 const $createClient = document.querySelector('#new-client')
 const $browse = document.querySelector('#browse')
-const $save = document.querySelector('#save')
 const $results = document.querySelector('#results')
 const $addClient = document.querySelector('#add-client')
 const $addIcon = document.querySelector('#add-icon')
+const $clientResults = document.querySelector('#client-results')
 
 $createClient.addEventListener('submit', function (event) {
   event.preventDefault()
@@ -17,6 +17,8 @@ $createClient.addEventListener('submit', function (event) {
   .then(client => {
     const $client = renderClient(client)
     $results.insertBefore($client, $addClient)
+    $clientResults.classList.remove('hidden')
+    document.querySelector('#panel').classList.add('hidden')
   })
 })
 
@@ -27,13 +29,8 @@ $browse.addEventListener('change', function (event) {
   $picFile.value = $browse.value.substring(fileNameIndex + 1)
 })
 
-$save.addEventListener('click', function (event) {
-  document.querySelector('#panel').classList.add('hidden')
-  $results.classList.remove('hidden')
-})
-
 $addIcon.addEventListener('click', function (event) {
-  $results.classList.add('hidden')
+  $clientResults.classList.add('hidden')
   document.querySelector('#panel').classList.remove('hidden')
 })
 
@@ -50,14 +47,16 @@ fetch('/clients')
   })
 
 function renderClient(client) {
-  const {first_name, last_name, intake_date, picture} = client
+  const {first_name, last_name, intake_date, picture, id} = client
   const $col = document.createElement('div')
   $col.classList.add('col-sm-6')
   $col.classList.add('col-md-4')
   const $thumbnail = document.createElement('div')
   $thumbnail.classList.add('thumbnail')
   const $image = document.createElement('img')
+  $image.classList.add('image')
   $image.setAttribute('src', 'images/' + picture)
+  $image.setAttribute('data-id', id)
   const $caption = document.createElement('div')
   $caption.classList.add('caption')
   const $fullname = document.createElement('h3')
@@ -66,8 +65,6 @@ function renderClient(client) {
   const d = new Date(intake_date)
   const datestring = 'Intake Date:' + ' ' + (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear()
   $date.textContent = datestring
-  console.log(intake_date)
-  console.log(new Date(intake_date))
 
   $col.appendChild($thumbnail)
   $thumbnail.appendChild($image)
@@ -76,4 +73,47 @@ function renderClient(client) {
   $caption.appendChild($date)
 
   return $col
+}
+
+function viewClientById(id) {
+  return fetch('/clients/' + id)
+  .then(response => {
+    return response.json()
+  })
+}
+
+$clientResults.addEventListener('click', function (event) {
+  const clientId = event.target.getAttribute('data-id')
+  if (clientId) {
+    viewClientById(clientId)
+    .then(data => {
+      const $clientDetail = renderClientDetailView(data)
+      const $showClient = document.querySelector('#show-client')
+      $showClient.appendChild($clientDetail)
+      document.querySelector('#client-results').classList.add('hidden')
+    })
+  }
+})
+
+function renderClientDetailView(client) {
+  const {first_name, last_name, intake_date, picture, id} = client
+  const $div = document.createElement('div')
+  const $imageSingle = document.createElement('img')
+  $imageSingle.setAttribute('src', 'images/' + picture)
+  $imageSingle.setAttribute('data-id', id)
+  const $caption = document.createElement('div')
+  $caption.classList.add('caption')
+  const $fullname = document.createElement('h1')
+  $fullname.textContent = first_name + ' ' + last_name
+  const $date = document.createElement('h4')
+  const d = new Date(intake_date)
+  const datestring = 'Intake Date:' + ' ' + (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear()
+  $date.textContent = datestring
+
+  $div.appendChild($imageSingle)
+  $div.appendChild($caption)
+  $caption.appendChild($fullname)
+  $caption.appendChild($date)
+
+  return $div
 }

@@ -43,6 +43,25 @@ app.post('/clients', upload.single('picture'), function (req, res) {
     })
 })
 
+function getClientById(id) {
+  const query = knex
+    .where('id', id)
+    .select()
+    .from('clients')
+    .first()
+  return query
+}
+
+app.get('/clients/:id', function (req, res) {
+  const clientId = parseInt(req.params.id, 10)
+  console.log(clientId)
+  getClientById(clientId)
+  .then(client => {
+    res.json(client)
+    console.log(client)
+  })
+})
+
 app.use(staticMiddleware)
 
 app.listen(3000, () => {
