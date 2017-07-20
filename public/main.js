@@ -6,6 +6,7 @@ const $addClient = document.querySelector('#add-client')
 const $addIcon = document.querySelector('#add-icon')
 const $clientResults = document.querySelector('#client-results')
 const $noteButton = document.querySelector('#note-button')
+const $createNote = document.querySelector('#create-note')
 
 $createClient.addEventListener('submit', function (event) {
   event.preventDefault()
@@ -37,6 +38,30 @@ $addIcon.addEventListener('click', function (event) {
 
 $noteButton.addEventListener('click', function (event) {
   $('#modal').modal('show')
+})
+
+$createNote.addEventListener('submit', function (event) {
+  event.preventDefault()
+  const $noteDate = document.querySelector('#note-date')
+  const $occupation = document.querySelector('#occupation')
+  const $messageText = document.querySelector('#message-text')
+  const $clientsId = document.querySelector('#clients-id')
+  const noteDate = $noteDate.value
+  const occupation = $occupation.value
+  const messageText = $messageText.value
+  const clientsId = $clientsId.value
+  const note = {note_date: noteDate, note_text: messageText, note_type: occupation, clients_id: clientsId}
+  fetch('/notes', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify(note)
+  })
+  .then(res => res.json())
+  .then(newNote => {
+    console.log(newNote)
+  })
 })
 
 fetch('/clients')
@@ -95,6 +120,8 @@ $clientResults.addEventListener('click', function (event) {
       const $clientDetail = renderClientDetailView(data)
       const $showClient = document.querySelector('#show-client')
       const $button = $showClient.querySelector('button')
+      const $getId = document.querySelector('#clients-id')
+      $getId.value = clientId
       $showClient.appendChild($clientDetail)
       $clientResults.classList.add('hidden')
       $showClient.classList.remove('hidden')
