@@ -62,16 +62,23 @@ app.get('/clients/:id', function (req, res) {
   })
 })
 
-const query = knex
-  .insert({ note_date: '07/19/2017', note_text: 'jashdfjksahfd', note_type: 'doctor', clients_id: 1 })
-  .into('notes')
-
-console.log(query.toString())
-
-query
-  .then(() => {
+app.post('/notes', function (req, res) {
+  const note = {
+    note_date: req.body.note_date,
+    note_text: req.body.note_text,
+    note_type: req.body.note_type,
+    clients_id: req.body.clients_id
+  }
+  const query = knex
+    .insert(note)
+    .into('notes')
+    .returning('*')
+  query
+  .then(note => {
+    res.json(note[0])
     console.log('done!')
   })
+})
 
 app.use(staticMiddleware)
 
