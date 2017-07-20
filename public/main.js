@@ -7,6 +7,7 @@ const $addIcon = document.querySelector('#add-icon')
 const $clientResults = document.querySelector('#client-results')
 const $noteButton = document.querySelector('#note-button')
 const $createNote = document.querySelector('#create-note')
+const $showClient = document.querySelector('#show-client')
 
 $createClient.addEventListener('submit', function (event) {
   event.preventDefault()
@@ -126,6 +127,18 @@ $clientResults.addEventListener('click', function (event) {
       $clientResults.classList.add('hidden')
       $showClient.classList.remove('hidden')
       $showClient.insertBefore($clientDetail, $button)
+      fetch('/notes?clients_id=' + clientId)
+        .then(response => {
+          console.log(response)
+          return response.json()
+        })
+        .then(notes => {
+          notes.map(renderNote)
+            .forEach($note => {
+              console.log($note)
+              $showClient.appendChild($note)
+            })
+        })
     })
   }
 })
@@ -151,4 +164,80 @@ function renderClientDetailView(client) {
   $caption.appendChild($date)
 
   return $div
+}
+
+function renderNote(note) {
+  const {note_date, note_type, note_text} = note
+  if (note_type === 'doctor') {
+    const $div = document.createElement('div')
+    $div.classList.add('panel')
+    $div.classList.add('panel-success')
+    const $panelHeader = document.createElement('div')
+    $panelHeader.classList.add('panel-heading')
+    const $panelBody = document.createElement('div')
+    $panelBody.classList.add('panel-body')
+    const $content = document.createElement('p')
+    const $date = document.createElement('h4')
+    const d = new Date(note_date)
+    const datestring = 'Date:' + ' ' + (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear()
+
+    $date.textContent = datestring
+    $panelHeader.textContent = note_type
+    $content.textContent = note_text
+
+    $div.appendChild($panelHeader)
+    $div.appendChild($panelBody)
+    $panelBody.appendChild($date)
+    $panelBody.appendChild($content)
+
+    return $div
+  }
+  else if (note_type === 'therapist') {
+    const $div = document.createElement('div')
+    $div.classList.add('panel')
+    $div.classList.add('panel-info')
+    const $panelHeader = document.createElement('div')
+    $panelHeader.classList.add('panel-heading')
+    const $panelBody = document.createElement('div')
+    $panelBody.classList.add('panel-body')
+    const $content = document.createElement('p')
+    const $date = document.createElement('h4')
+    const d = new Date(note_date)
+    const datestring = 'Date:' + ' ' + (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear()
+
+    $date.textContent = datestring
+    $panelHeader.textContent = note_type
+    $content.textContent = note_text
+
+    $div.appendChild($panelHeader)
+    $div.appendChild($panelBody)
+    $panelBody.appendChild($date)
+    $panelBody.appendChild($content)
+
+    return $div
+  }
+  else if (note_type === 'case manager') {
+    const $div = document.createElement('div')
+    $div.classList.add('panel')
+    $div.classList.add('panel-warning')
+    const $panelHeader = document.createElement('div')
+    $panelHeader.classList.add('panel-heading')
+    const $panelBody = document.createElement('div')
+    $panelBody.classList.add('panel-body')
+    const $content = document.createElement('p')
+    const $date = document.createElement('h4')
+    const d = new Date(note_date)
+    const datestring = 'Date:' + ' ' + (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear()
+
+    $date.textContent = datestring
+    $panelHeader.textContent = note_type
+    $content.textContent = note_text
+
+    $div.appendChild($panelHeader)
+    $div.appendChild($panelBody)
+    $panelBody.appendChild($date)
+    $panelBody.appendChild($content)
+
+    return $div
+  }
 }

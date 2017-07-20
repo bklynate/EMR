@@ -63,9 +63,11 @@ app.get('/clients/:id', function (req, res) {
 })
 
 app.get('/notes', function (req, res) {
+  console.log(req.query)
   const query = knex
     .select()
     .from('notes')
+    .where(req.query)
   query
     .then((notes) => {
       res.json(notes)
