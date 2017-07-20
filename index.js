@@ -62,6 +62,16 @@ app.get('/clients/:id', function (req, res) {
   })
 })
 
+app.get('/notes', function (req, res) {
+  const query = knex
+    .select()
+    .from('notes')
+  query
+    .then((notes) => {
+      res.json(notes)
+    })
+})
+
 app.post('/notes', function (req, res) {
   const note = {
     note_date: req.body.note_date,
