@@ -1,9 +1,11 @@
 /* eslint-disable camelcase */
+/* global $ */
 const $createClient = document.querySelector('#new-client')
 const $browse = document.querySelector('#browse')
 const $addClient = document.querySelector('#add-client')
 const $addIcon = document.querySelector('#add-icon')
 const $clientResults = document.querySelector('#client-results')
+const $noteButton = document.querySelector('#note-button')
 
 $createClient.addEventListener('submit', function (event) {
   event.preventDefault()
@@ -31,6 +33,10 @@ $browse.addEventListener('change', function (event) {
 $addIcon.addEventListener('click', function (event) {
   $clientResults.classList.add('hidden')
   document.querySelector('#panel').classList.remove('hidden')
+})
+
+$noteButton.addEventListener('click', function (event) {
+  $('#modal').modal('show')
 })
 
 fetch('/clients')
