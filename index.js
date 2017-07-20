@@ -62,6 +62,17 @@ app.get('/clients/:id', function (req, res) {
   })
 })
 
+const query = knex
+  .insert({ note_date: '07/19/2017', note_text: 'jashdfjksahfd', note_type: 'doctor', clients_id: 1 })
+  .into('notes')
+
+console.log(query.toString())
+
+query
+  .then(() => {
+    console.log('done!')
+  })
+
 app.use(staticMiddleware)
 
 app.listen(3000, () => {
