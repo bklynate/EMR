@@ -24,8 +24,8 @@ $createClient.addEventListener('submit', function (event) {
   .then(client => {
     const $client = renderClient(client)
     $panelClients.insertBefore($client, $addClient)
-    $clientResults.classList.remove('hidden')
-    document.querySelector('#panel').classList.add('hidden')
+    router.push('client-results')
+    $createClient.reset()
   })
 })
 
@@ -37,8 +37,7 @@ $browse.addEventListener('change', function (event) {
 })
 
 $addIcon.addEventListener('click', function (event) {
-  $clientResults.classList.add('hidden')
-  document.querySelector('#panel').classList.remove('hidden')
+  router.push('panel')
 })
 
 $noteButton.addEventListener('click', function (event) {
@@ -76,7 +75,6 @@ $createNote.addEventListener('submit', function (event) {
 
 fetch('/clients')
   .then(response => {
-    console.log(response)
     return response.json()
   })
   .then(clients => {
@@ -133,20 +131,17 @@ $clientResults.addEventListener('click', function (event) {
       const $getId = document.querySelector('#clients-id')
       $getId.value = clientId
       $displayClient.appendChild($clientDetail)
-      $clientResults.classList.add('hidden')
-      $showClient.classList.remove('hidden')
       $displayClient.insertBefore($clientDetail, $button)
       fetch('/notes?clients_id=' + clientId)
         .then(response => {
-          console.log(response)
           return response.json()
         })
         .then(notes => {
           notes.map(renderNote)
             .forEach($note => {
-              console.log($note)
               $displayNote.appendChild($note)
             })
+          router.push('show-client')
         })
     })
   }
@@ -250,3 +245,42 @@ function renderNote(note) {
     return $div
   }
 }
+
+class Router {
+  constructor($views) {
+    this.$views = $views
+  }
+  match(hash) {
+    if (hash === '') {
+      return this.push('client-results')
+    }
+    this.$views.forEach($view => {
+      if ($view.id === hash) {
+        $view.classList.remove('hidden')
+      }
+      else {
+        $view.classList.add('hidden')
+      }
+    })
+  }
+  push(hash) {
+    window.location.hash = hash
+  }
+  listen() {
+    window.addEventListener('hashchange', () => {
+      this.match(window.location.hash.slice(1))
+    })
+    const hash = window.location.hash
+    if (hash === '#show-client') {
+      this.push('client-results')
+    }
+    const event = new Event('hashchange')
+    window.dispatchEvent(event)
+  }
+}
+
+const $views = document.querySelectorAll('.view')
+
+const router = new Router($views)
+
+router.listen()
