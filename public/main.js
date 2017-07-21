@@ -11,6 +11,7 @@ const $showClient = document.querySelector('#show-client')
 const $displayClient = document.querySelector('#display-client')
 const $displayNote = document.querySelector('#display-note')
 const $panelClients = document.querySelector('#panel-clients')
+const $save = document.querySelector('#save')
 
 $createClient.addEventListener('submit', function (event) {
   event.preventDefault()
@@ -44,6 +45,10 @@ $noteButton.addEventListener('click', function (event) {
   $('#modal').modal('show')
 })
 
+$save.addEventListener('click', function (event) {
+  $('#modal').modal('hide')
+})
+
 $createNote.addEventListener('submit', function (event) {
   event.preventDefault()
   const $noteDate = document.querySelector('#note-date')
@@ -64,7 +69,8 @@ $createNote.addEventListener('submit', function (event) {
   })
   .then(res => res.json())
   .then(newNote => {
-    console.log(newNote)
+    const $renderNote = renderNote(note)
+    $displayNote.appendChild($renderNote)
   })
 })
 
@@ -182,7 +188,7 @@ function renderNote(note) {
     const $content = document.createElement('p')
     const $date = document.createElement('h4')
     const d = new Date(note_date)
-    const datestring = 'Date:' + ' ' + (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear()
+    const datestring = (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear()
 
     $date.textContent = datestring
     $panelHeader.textContent = note_type
