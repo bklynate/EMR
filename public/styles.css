@@ -22,6 +22,14 @@ body {
 }
 
 h3,
-p {
+#dateAlign {
   text-align: center;
+}
+
+#panel-main {
+  margin-top: 2%;
+}
+
+#panel-client {
+  margin-top: 4%;
 }

@@ -10,12 +10,24 @@
   <body>
     <div class="container">
       <div id="client-results" class="row">
-        <div id="add-client" class="col-sm-6 col-md-4">
-          <img id="add-icon" src="https://cdn4.iconfinder.com/data/icons/meBaze-Freebies/128/add-user.png" alt="add" />
+        <div id="panel-main" class="panel panel-primary">
+          <div id="panel-clients" class="panel-body">
+            <div id="add-client" class="col-sm-6 col-md-4">
+              <img id="add-icon" src="https://cdn4.iconfinder.com/data/icons/meBaze-Freebies/128/add-user.png" alt="add" />
+            </div>
+          </div>
         </div>
       </div>
       <div id="show-client" class="row hidden">
-        <button id="note-button" type="button" class="btn btn-primary">Add Note</button>
+        <div id="panel-client" class="panel panel-primary">
+          <div class="panel-body">
+            <div id="display-client" class="col-xs-6 col-md-4">
+              <button id="note-button" type="button" class="btn btn-primary">Add Note</button>
+            </div>
+            <div id="display-note" class="col-xs-12 col-sm-6 col-md-8">
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal fade" id="modal" tabindex="-1" role="dialog">
         <form id="create-note">
@@ -46,7 +58,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save changes</button>
+              <button id="save" type="submit" class="btn btn-primary">Save</button>
             </div>
           </div>
         </div>

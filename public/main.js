@@ -8,6 +8,9 @@ const $clientResults = document.querySelector('#client-results')
 const $noteButton = document.querySelector('#note-button')
 const $createNote = document.querySelector('#create-note')
 const $showClient = document.querySelector('#show-client')
+const $displayClient = document.querySelector('#display-client')
+const $displayNote = document.querySelector('#display-note')
+const $panelClients = document.querySelector('#panel-clients')
 
 $createClient.addEventListener('submit', function (event) {
   event.preventDefault()
@@ -19,7 +22,7 @@ $createClient.addEventListener('submit', function (event) {
   .then(res => res.json())
   .then(client => {
     const $client = renderClient(client)
-    $clientResults.insertBefore($client, $addClient)
+    $panelClients.insertBefore($client, $addClient)
     $clientResults.classList.remove('hidden')
     document.querySelector('#panel').classList.add('hidden')
   })
@@ -73,7 +76,7 @@ fetch('/clients')
   .then(clients => {
     clients.map(renderClient)
       .forEach($client => {
-        $clientResults.insertBefore($client, $addClient)
+        $panelClients.insertBefore($client, $addClient)
       })
   })
 
@@ -93,6 +96,7 @@ function renderClient(client) {
   const $fullname = document.createElement('h3')
   $fullname.textContent = first_name + ' ' + last_name
   const $date = document.createElement('p')
+  $date.setAttribute('id', 'dateAlign')
   const d = new Date(intake_date)
   const datestring = 'Intake Date:' + ' ' + (d.getMonth() + 1) + '-' + d.getDate() + '-' + d.getFullYear()
   $date.textContent = datestring
@@ -119,14 +123,13 @@ $clientResults.addEventListener('click', function (event) {
     viewClientById(clientId)
     .then(data => {
       const $clientDetail = renderClientDetailView(data)
-      const $showClient = document.querySelector('#show-client')
       const $button = $showClient.querySelector('button')
       const $getId = document.querySelector('#clients-id')
       $getId.value = clientId
-      $showClient.appendChild($clientDetail)
+      $displayClient.appendChild($clientDetail)
       $clientResults.classList.add('hidden')
       $showClient.classList.remove('hidden')
-      $showClient.insertBefore($clientDetail, $button)
+      $displayClient.insertBefore($clientDetail, $button)
       fetch('/notes?clients_id=' + clientId)
         .then(response => {
           console.log(response)
@@ -136,7 +139,7 @@ $clientResults.addEventListener('click', function (event) {
           notes.map(renderNote)
             .forEach($note => {
               console.log($note)
-              $showClient.appendChild($note)
+              $displayNote.appendChild($note)
             })
         })
     })
