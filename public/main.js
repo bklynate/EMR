@@ -70,6 +70,7 @@ $createNote.addEventListener('submit', function (event) {
   .then(newNote => {
     const $renderNote = renderNote(note)
     $displayNote.appendChild($renderNote)
+    $createNote.reset()
   })
 })
 
